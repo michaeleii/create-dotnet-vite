@@ -56,7 +56,7 @@ Let's start coding! 🚀
 
 // ----------------------------------------------------------------------
 
-async function existsDirectory(path: string): Promise<boolean> {
+async function existsDirectory(path) {
   try {
     await fs.access(path);
 
