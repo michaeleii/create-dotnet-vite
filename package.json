@@ -1,9 +1,7 @@
 {
   "name": "create-dotnet-vite",
   "module": "index.ts",
-  "bin": {
-    "create-dotnet-vite": "index.ts"
-  },
+  "bin": "./index.ts",
   "type": "module",
   "scripts": {
     "build": "tsc"
