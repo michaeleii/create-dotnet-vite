@@ -1,6 +1,6 @@
 {
   "name": "create-dotnet-vite",
-  "version": "0.0.4",
+  "version": "0.0.41",
   "module": "index.js",
   "dependencies": {
     "@clack/prompts": "^0.7.0",
