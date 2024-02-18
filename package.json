@@ -1,7 +1,7 @@
 {
   "name": "create-dotnet-vite",
   "version": "0.0.01",
-  "module": "index.js",
+  "module": "index.ts",
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "picocolors": "^1.0.0"
@@ -10,7 +10,7 @@
     "@types/bun": "latest"
   },
   "bin": {
-    "create-dotnet-vite": "index.js"
+    "create-dotnet-vite": "index.ts"
   },
   "type": "module"
 }
