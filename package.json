@@ -1,7 +1,9 @@
 {
   "name": "create-dotnet-vite",
   "module": "index.ts",
-  "bin": "./index.ts",
+  "bin": {
+    "create-dotnet-vite": "index.ts"
+  },
   "type": "module",
   "scripts": {
     "build": "tsc"
@@ -15,5 +17,6 @@
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "picocolors": "^1.0.0"
-  }
+  },
+  "version": "0.0.1"
 }
