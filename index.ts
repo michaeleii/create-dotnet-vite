@@ -39,7 +39,7 @@ await $`cd ${projectName} && dotnet sln add ./${projectName}.Web/${projectName}.
 
 s.stop("Successfully created dotnet project.");
 
-await $`cd ${projectName} && bun create vite ${projectName}.Frontend`;
+await $`cd ${projectName} && bun create vite ${projectName}.Frontend --template react-ts`;
 
 p.note(`
 ${projectName}.Web is the backend aspnet core project
