@@ -16,5 +16,5 @@
     "@clack/prompts": "^0.7.0",
     "picocolors": "^1.0.0"
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
