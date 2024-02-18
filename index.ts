@@ -39,7 +39,7 @@ await $`cd ${projectName} && dotnet sln add ./${projectName}.Web/${projectName}.
 
 s.stop("Successfully created dotnet project.");
 
-await $`cd ${projectName} && bun create vite ${projectName}.Frontend --template react-ts`;
+await $`cd ${projectName} && bun create vite ${projectName}.Frontend`;
 
 p.outro(`
 Let's start coding! 🚀
@@ -48,7 +48,7 @@ cd ${projectName}
 ${projectName}.Web is the backend aspnet core project
 ${color.green("dotnet run")} to start the backend
 
-${projectName}.Frontend is the frontend react vite project
+${projectName}.Frontend is the frontend vite project
 ${color.green("bun install")} to install the frontend dependencies
 ${color.green("bun dev")} to start the frontend
 `);
