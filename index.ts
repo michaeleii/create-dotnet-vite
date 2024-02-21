@@ -29,12 +29,12 @@ if (dirExists) {
   process.exit(1);
 }
 
-await $`mkdir ${projectName}`;
-await $`cd ${projectName} && dotnet new sln -n ${projectName}`;
-await $`cd ${projectName} && dotnet new web -o ${projectName}.Web`;
-await $`cd ${projectName} && dotnet sln add ./${projectName}.Web/${projectName}.Web.csproj`;
+await $`mkdir ../${projectName}`;
+await $`cd ../${projectName} && dotnet new sln -n ${projectName}`;
+await $`cd ../${projectName} && dotnet new web -o ${projectName}.Web`;
+await $`cd ../${projectName} && dotnet sln add ./${projectName}.Web/${projectName}.Web.csproj`;
 
-await $`cd ${projectName} && bun create vite ${projectName}.Frontend --template react-ts`;
+await $`cd ../${projectName} && bun create vite ./${projectName}.Frontend --template react-ts`;
 
 p.note(`
 ${projectName}.Web is the backend aspnet core project
