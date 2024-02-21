@@ -29,15 +29,10 @@ if (dirExists) {
   process.exit(1);
 }
 
-const s = p.spinner();
-
-s.start();
 await $`mkdir ${projectName}`;
 await $`cd ${projectName} && dotnet new sln -n ${projectName}`;
 await $`cd ${projectName} && dotnet new web -o ${projectName}.Web`;
 await $`cd ${projectName} && dotnet sln add ./${projectName}.Web/${projectName}.Web.csproj`;
-
-s.stop("Successfully created dotnet project.");
 
 await $`cd ${projectName} && bun create vite ${projectName}.Frontend --template react-ts`;
 
