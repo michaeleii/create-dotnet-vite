@@ -31,16 +31,16 @@ if (dirExists) {
 
 await $`mkdir ../${projectName}`;
 await $`cd ../${projectName} && dotnet new sln -n ${projectName}`;
-await $`cd ../${projectName} && dotnet new web -o ${projectName}.Web`;
-await $`cd ../${projectName} && dotnet sln add ./${projectName}.Web/${projectName}.Web.csproj`;
+await $`cd ../${projectName} && dotnet new web -o ${projectName}.Server`;
+await $`cd ../${projectName} && dotnet sln add ./${projectName}.Server/${projectName}.Server.csproj`;
 
-await $`cd ../${projectName} && bun create vite ./${projectName}.Frontend --template react-ts`;
+await $`cd ../${projectName} && bun create vite ./${projectName}.Client --template react-ts`;
 
 p.note(`
-${projectName}.Web is the backend aspnet core project
+${projectName}.Server is the backend aspnet core project
 ${color.green("dotnet run")} to start the backend
 
-${projectName}.Frontend is the frontend vite project
+${projectName}.Client is the frontend vite project
 ${color.green("bun install")} to install the frontend dependencies
 ${color.green("bun dev")} to start the frontend`);
 
