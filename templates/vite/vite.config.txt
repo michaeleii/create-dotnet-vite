@@ -9,4 +9,8 @@ export default defineConfig({
       "/api": "[Enter your API URL here]",
     },
   },
+  build: {
+    outDir: "../TestApp.Server/wwwroot",
+    emptyOutDir: true,
+  },
 });

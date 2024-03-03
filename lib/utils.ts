@@ -49,6 +49,9 @@ export async function createNewViteProject(projectName: string) {
   // Copy templates/vite/App.txt to the project directory
   await $`cp templates/vite/App.txt ../${projectName}/${projectName}.Client/src/App.tsx`;
 
+  // Modify templates/vite/vite.config.txt to replace the project name
+  await $`sed -i '' 's/PROJECT_NAME/${projectName}/g' templates/vite/vite.config.txt`;
+
   // Copy templates/vite/vite.config.txt to the project directory
   await $`cp templates/vite/vite.config.txt ../${projectName}/${projectName}.Client/vite.config.ts`;
 }
