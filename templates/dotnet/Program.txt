@@ -1,0 +1,23 @@
+DotNetEnv.Env.Load();
+
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.MapGet("/", () => "Hello World!");
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+app.MapFallbackToFile("index.html");
+
+app.Run();

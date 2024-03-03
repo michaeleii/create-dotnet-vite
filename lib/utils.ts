@@ -18,6 +18,20 @@ export async function createNewDotnetWebProject(projectName: string) {
   await $`cd ../${projectName} && dotnet new web -o ${projectName}.Server`;
   await $`cd ../${projectName} && dotnet sln add ./${projectName}.Server/${projectName}.Server.csproj`;
   await $`cd ../${projectName}/${projectName}.Server && dotnet new gitignore`;
+
+  // Add DotNetEnv package
+  await $`cd ../${projectName}/${projectName}.Server && dotnet add package DotNetEnv`;
+
+  // Add Swagger
+  await $`cd ../${projectName}/${projectName}.Server && dotnet add package Swashbuckle.AspNetCore`;
+  await $`cd ../${projectName}/${projectName}.Server && dotnet add package Microsoft.AspNetCore.OpenApi`;
+
+  // Add Entity Framework
+  await $`cd ../${projectName}/${projectName}.Server && dotnet add package Microsoft.EntityFrameworkCore`;
+  await $`cd ../${projectName}/${projectName}.Server && dotnet add package Microsoft.EntityFrameworkCore.Design`;
+
+  // Copy templates/dotnet/Program.txt to the project directory
+  await $`cp templates/dotnet/Program.txt ../${projectName}/${projectName}.Server/Program.cs`;
 }
 
 export async function createNewViteProject(projectName: string) {
