@@ -26,6 +26,12 @@ export async function createNewViteProject(projectName: string) {
   await $`rm -f ../${projectName}/${projectName}.Client/src/App.css`;
   // Remove the default App.tsx
   await $`rm -f ../${projectName}/${projectName}.Client/src/App.tsx`;
+
+  // Copy templates/vite/App.txt to the project directory
+  await $`cp templates/vite/App.txt ../${projectName}/${projectName}.Client/src/App.tsx`;
+
+  // Copy templates/vite/vite.config.txt to the project directory
+  await $`cp templates/vite/vite.config.txt ../${projectName}/${projectName}.Client/vite.config.ts`;
 }
 
 export async function setupTailwind(projectName: string) {
