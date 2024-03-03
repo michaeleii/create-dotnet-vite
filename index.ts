@@ -30,22 +30,6 @@ if (p.isCancel(projectName)) {
 const dirExists = await existsDirectory(`../${projectName}`);
 
 if (dirExists) {
-  // const overwriteDirectory = await p.confirm({
-  //   message: color.red(
-  //     `Directory ${projectName} already exists. Do you want to continue?`
-  //   ),
-  // });
-  // if (!overwriteDirectory) {
-  //   p.outro(`You must delete ${projectName} before continuing.`);
-  //   process.exit(0);
-  // }
-  // if (p.isCancel(overwriteDirectory)) {
-  //   p.cancel("Operation cancelled.");
-  //   process.exit(0);
-  // }
-  // await $`rm -r ../${projectName}`;
-  // Wait for the directory to be deleted
-  // await sleep(50000);
   p.outro(`You must delete ${projectName} before continuing.`);
   process.exit(0);
 }
@@ -72,7 +56,6 @@ ${projectName}.Server is the backend aspnet core project
 ${color.green("dotnet run")} to start the backend
 
 ${projectName}.Client is the frontend vite project
-${color.green("bun install")} to install the frontend dependencies
 ${color.green("bun dev")} to start the frontend`);
 
 p.outro(`

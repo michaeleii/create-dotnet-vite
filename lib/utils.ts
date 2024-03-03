@@ -1,5 +1,5 @@
 import * as fs from "node:fs/promises";
-import { $ } from "bun";
+import { $, file } from "bun";
 
 export async function existsDirectory(path: string): Promise<boolean> {
   try {
@@ -49,11 +49,25 @@ export async function createNewViteProject(projectName: string) {
   // Copy templates/vite/App.txt to the project directory
   await $`cp templates/vite/App.txt ../${projectName}/${projectName}.Client/src/App.tsx`;
 
-  // Modify templates/vite/vite.config.txt to replace the project name
-  await $`sed -i '' 's/PROJECT_NAME/${projectName}/g' templates/vite/vite.config.txt`;
-
   // Copy templates/vite/vite.config.txt to the project directory
   await $`cp templates/vite/vite.config.txt ../${projectName}/${projectName}.Client/vite.config.ts`;
+
+  // Read the launchSettings.json file to get the dotnet api url
+  const launchSettings = await file(
+    `../${projectName}/${projectName}.Server/Properties/launchSettings.json`
+  ).json();
+
+  const dotnetApiUrl = launchSettings.profiles.http.applicationUrl.replace(
+    "http://",
+    ""
+  );
+
+  // Modify vite.config in the client directory to replace the dotnet api url
+  // Replace DOTNET_API_URL with the dotnetApiUrl in the vite.config.ts
+  await $`sed -i 's/"DOTNET_API_URL"/"http:\/\/${dotnetApiUrl}"/g' ../${projectName}/${projectName}.Client/vite.config.ts`;
+
+  // Modify vite.config in the client directory to replace the project name
+  await $`sed -i '' 's/PROJECT_NAME/${projectName}/g' ../${projectName}/${projectName}.Client/vite.config.ts`;
 }
 
 export async function setupTailwind(projectName: string) {
