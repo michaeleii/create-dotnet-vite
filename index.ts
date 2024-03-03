@@ -97,8 +97,14 @@ async function setupTailwind(projectName: string) {
 
   // Remove the default tailwind.config.js
   await $`rm -f ../${projectName}/${projectName}.Client/tailwind.config.js`;
+
   // Remove the default index.css
   await $`rm -f ../${projectName}/${projectName}.Client/src/index.css`;
+
+  // Remove the default App.css
+  await $`rm -f ../${projectName}/${projectName}.Client/src/App.css`;
+  // Remove the default App.tsx
+  await $`rm -f ../${projectName}/${projectName}.Client/src/App.tsx`;
 
   // Copy templates/tailwind.config.js to the project directory
   await $`cp templates/tailwind/tailwind.config.js ../${projectName}/${projectName}.Client/tailwind.config.js`;
@@ -106,4 +112,7 @@ async function setupTailwind(projectName: string) {
 
   // Copy templates/tailwind/prettier.config.js to the project directory
   await $`cp templates/tailwind/prettier.config.js ../${projectName}/${projectName}.Client/prettier.config.js`;
+
+  // Copy templates/tailwind/App.tsx to the project directory
+  await $`cp templates/tailwind/App.txt ../${projectName}/${projectName}.Client/src/App.tsx`;
 }
