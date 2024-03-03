@@ -45,7 +45,7 @@ ${color.green("bun install")} to install the frontend dependencies
 ${color.green("bun dev")} to start the frontend`);
 
 p.outro(`
-cd ${projectName}
+cd ../${projectName} to start coding
 Let's start coding! 🚀
 `);
 
