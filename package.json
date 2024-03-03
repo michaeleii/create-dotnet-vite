@@ -4,7 +4,7 @@
   "module": "index.ts",
   "scripts": {
     "create-dv": "bun index.ts",
-    "build": "bun build index.ts --compile --minify --sourcemap --outfile create-dotnet-vite"
+    "build": "bun build index.ts --compile --minify --sourcemap --outfile build/create-dotnet-vite"
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
