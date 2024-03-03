@@ -37,7 +37,10 @@ export async function createNewDotnetWebProject(projectName: string) {
 }
 
 export async function createNewViteProject(projectName: string) {
-  await $`cd ../${projectName} && bun create vite ./${projectName}.Client --template react-ts`;
+  await $`cd ../${projectName} && bun create vite ${projectName.toLowerCase()}-client --template react-ts`;
+  // Rename the project directory
+  await $`mv ../${projectName}/${projectName.toLowerCase()}-client ../${projectName}/${projectName}.Client`;
+
   // Remove the default App.css
   await $`rm -f ../${projectName}/${projectName}.Client/src/App.css`;
   // Remove the default App.tsx
@@ -66,7 +69,4 @@ export async function setupTailwind(projectName: string) {
 
   // Copy templates/tailwind/prettier.config.js to the project directory
   await $`cp templates/tailwind/prettier.config.js ../${projectName}/${projectName}.Client/prettier.config.js`;
-
-  // Copy templates/tailwind/App.tsx to the project directory
-  await $`cp templates/tailwind/App.txt ../${projectName}/${projectName}.Client/src/App.tsx`;
 }

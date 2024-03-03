@@ -1,6 +1,6 @@
 import * as p from "@clack/prompts";
 import color from "picocolors";
-import { $ } from "bun";
+import { $, ShellPromise, sleep } from "bun";
 import {
   existsDirectory,
   createNewDotnetWebProject,
@@ -30,18 +30,24 @@ if (p.isCancel(projectName)) {
 const dirExists = await existsDirectory(`../${projectName}`);
 
 if (dirExists) {
-  // const overwrite = await p.confirm({
+  // const overwriteDirectory = await p.confirm({
   //   message: color.red(
   //     `Directory ${projectName} already exists. Do you want to continue?`
   //   ),
   // });
-  // if (!overwrite) {
-  //   p.outro(`Directory ${projectName} already exists 😬`);
-  //   process.exit(1);
+  // if (!overwriteDirectory) {
+  //   p.outro(`You must delete ${projectName} before continuing.`);
+  //   process.exit(0);
   // }
-  // await $`rm -rf ../${projectName}`;
-  p.outro(`Directory ${projectName} already exists 😬`);
-  process.exit(1);
+  // if (p.isCancel(overwriteDirectory)) {
+  //   p.cancel("Operation cancelled.");
+  //   process.exit(0);
+  // }
+  // await $`rm -r ../${projectName}`;
+  // Wait for the directory to be deleted
+  // await sleep(50000);
+  p.outro(`You must delete ${projectName} before continuing.`);
+  process.exit(0);
 }
 
 const useTailwind = await p.confirm({
