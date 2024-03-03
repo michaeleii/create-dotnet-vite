@@ -21,6 +21,8 @@ export async function createNewDotnetWebProject(projectName: string) {
 
   // Add DotNetEnv package
   await $`cd ../${projectName}/${projectName}.Server && dotnet add package DotNetEnv`;
+  // Copy the .env.example file to the server project
+  await $`cp ../${projectName}/.env.example ../${projectName}/${projectName}.Server/.env`;
 
   // Add Swagger
   await $`cd ../${projectName}/${projectName}.Server && dotnet add package Swashbuckle.AspNetCore`;
