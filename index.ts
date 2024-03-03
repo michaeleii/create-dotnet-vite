@@ -25,17 +25,17 @@ if (p.isCancel(projectName)) {
 const dirExists = await existsDirectory(projectName);
 
 if (dirExists) {
-  if (
-    await p.confirm({
-      message: color.red(
-        `Directory ${projectName} already exists. Do you want to continue?`
-      ),
-    })
-  ) {
+  const overwrite = await p.confirm({
+    message: color.red(
+      `Directory ${projectName} already exists. Do you want to continue?`
+    ),
+  });
+  if (overwrite) {
     await $`rm -rf ../${projectName}`;
+  } else {
+    p.outro(`Directory ${projectName} already exists 😬`);
+    process.exit(1);
   }
-  p.outro(`Directory ${projectName} already exists 😬`);
-  process.exit(1);
 }
 
 const useTailwind = await p.text({
@@ -92,10 +92,11 @@ async function createNewDotnetWebProject(projectName: string) {
   await $`cd ../${projectName} && dotnet new sln -n ${projectName}`;
   await $`cd ../${projectName} && dotnet new web -o ${projectName}.Server`;
   await $`cd ../${projectName} && dotnet sln add ./${projectName}.Server/${projectName}.Server.csproj`;
+  await $`cd ../${projectName}/${projectName}.Server && dotnet new gitignore`;
 }
 
 async function setupTailwind(projectName: string) {
-  await $`cd ../${projectName}/${projectName}.Client && bun install -D tailwindcss postcss autoprefixer`;
+  await $`cd ../${projectName}/${projectName}.Client && bun install -D tailwindcss postcss autoprefixer prettier prettier-plugin-tailwindcss`;
   await $`cd ../${projectName}/${projectName}.Client && bun tailwindcss init -p`;
 
   // Remove the default tailwind.config.js
@@ -106,4 +107,7 @@ async function setupTailwind(projectName: string) {
   // Copy templates/tailwind.config.js to the project directory
   await $`cp templates/tailwind/tailwind.config.js ../${projectName}/${projectName}.Client/tailwind.config.js`;
   await $`cp templates/tailwind/index.css ../${projectName}/${projectName}.Client/src/index.css`;
+
+  // Copy templates/tailwind/prettier.config.js to the project directory
+  await $`cp templates/tailwind/prettier.config.js ../${projectName}/${projectName}.Client/prettier.config.js`;
 }
