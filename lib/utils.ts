@@ -1,5 +1,5 @@
 import * as fs from "node:fs/promises";
-import { $, file } from "bun";
+import { $, file, write } from "bun";
 
 export async function existsDirectory(path: string): Promise<boolean> {
   try {
@@ -22,7 +22,8 @@ export async function createNewDotnetWebProject(projectName: string) {
   // Add DotNetEnv package
   await $`cd ../${projectName}/${projectName}.Server && dotnet add package DotNetEnv`;
   // Copy the .env.example file to the server project
-  await $`cp ../${projectName}/.env.example ../${projectName}/${projectName}.Server/.env`;
+  const envExample = file(`templates/dotnet/.env.example`);
+  write(`../${projectName}/${projectName}.Server/.env`, envExample);
 
   // Add Swagger
   await $`cd ../${projectName}/${projectName}.Server && dotnet add package Swashbuckle.AspNetCore`;
@@ -33,7 +34,9 @@ export async function createNewDotnetWebProject(projectName: string) {
   await $`cd ../${projectName}/${projectName}.Server && dotnet add package Microsoft.EntityFrameworkCore.Design`;
 
   // Copy templates/dotnet/Program.txt to the project directory
-  await $`cp templates/dotnet/Program.txt ../${projectName}/${projectName}.Server/Program.cs`;
+  const program = file(`templates/dotnet/Program.txt`);
+  write(`../${projectName}/${projectName}.Server/Program.cs`, program);
+  // await $`cp templates/dotnet/Program.txt ../${projectName}/${projectName}.Server/Program.cs`;
 }
 
 export async function createNewViteProject(projectName: string) {
@@ -52,10 +55,14 @@ export async function createNewViteProject(projectName: string) {
   await $`rm -f ../${projectName}/${projectName}.Client/src/App.tsx`;
 
   // Copy templates/vite/App.txt to the project directory
-  await $`cp templates/vite/App.txt ../${projectName}/${projectName}.Client/src/App.tsx`;
+  const app = file(`templates/vite/App.txt`);
+  write(`../${projectName}/${projectName}.Client/src/App.tsx`, app);
+  // await $`cp templates/vite/App.txt ../${projectName}/${projectName}.Client/src/App.tsx`;
 
   // Copy templates/vite/vite.config.txt to the project directory
-  await $`cp templates/vite/vite.config.txt ../${projectName}/${projectName}.Client/vite.config.ts`;
+  const viteConfig = file(`templates/vite/vite.config.txt`);
+  write(`../${projectName}/${projectName}.Client/vite.config.ts`, viteConfig);
+  // await $`cp templates/vite/vite.config.txt ../${projectName}/${projectName}.Client/vite.config.ts`;
 
   // Read the launchSettings.json file to get the dotnet api url
   const launchSettings = await file(
@@ -86,9 +93,22 @@ export async function setupTailwind(projectName: string) {
   await $`rm -f ../${projectName}/${projectName}.Client/src/index.css`;
 
   // Copy templates/tailwind.config.js to the project directory
-  await $`cp templates/tailwind/tailwind.config.js ../${projectName}/${projectName}.Client/tailwind.config.js`;
-  await $`cp templates/tailwind/index.css ../${projectName}/${projectName}.Client/src/index.css`;
+  const tailwindConfig = file(`templates/tailwind/tailwind.config.js`);
+  write(
+    `../${projectName}/${projectName}.Client/tailwind.config.js`,
+    tailwindConfig
+  );
+  // Copy templates/index.css to the project directory
+  const indexCss = file(`templates/tailwind/index.css`);
+  write(`../${projectName}/${projectName}.Client/src/index.css`, indexCss);
+  // await $`cp templates/tailwind/tailwind.config.js ../${projectName}/${projectName}.Client/tailwind.config.js`;
+  // await $`cp templates/tailwind/index.css ../${projectName}/${projectName}.Client/src/index.css`;
 
   // Copy templates/tailwind/prettier.config.js to the project directory
-  await $`cp templates/tailwind/prettier.config.js ../${projectName}/${projectName}.Client/prettier.config.js`;
+  const prettierConfig = file(`templates/tailwind/prettier.config.js`);
+  write(
+    `../${projectName}/${projectName}.Client/prettier.config.js`,
+    prettierConfig
+  );
+  // await $`cp templates/tailwind/prettier.config.js ../${projectName}/${projectName}.Client/prettier.config.js`;
 }
