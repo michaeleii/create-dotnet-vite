@@ -97,4 +97,13 @@ async function createNewDotnetWebProject(projectName: string) {
 async function setupTailwind(projectName: string) {
   await $`cd ../${projectName}/${projectName}.Client && bun install -D tailwindcss postcss autoprefixer`;
   await $`cd ../${projectName}/${projectName}.Client && bun tailwindcss init -p`;
+
+  // Remove the default tailwind.config.js
+  await $`rm -f ../${projectName}/${projectName}.Client/tailwind.config.js`;
+  // Remove the default index.css
+  await $`rm -f ../${projectName}/${projectName}.Client/src/index.css`;
+
+  // Copy templates/tailwind.config.js to the project directory
+  await $`cp templates/tailwind/tailwind.config.js ../${projectName}/${projectName}.Client/tailwind.config.js`;
+  await $`cp templates/tailwind/index.css ../${projectName}/${projectName}.Client/src/index.css`;
 }
