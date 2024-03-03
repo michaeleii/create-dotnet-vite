@@ -36,7 +36,6 @@ export async function createNewDotnetWebProject(projectName: string) {
   // Copy templates/dotnet/Program.txt to the project directory
   const program = file(`templates/dotnet/Program.txt`);
   write(`../${projectName}/${projectName}.Server/Program.cs`, program);
-  // await $`cp templates/dotnet/Program.txt ../${projectName}/${projectName}.Server/Program.cs`;
 }
 
 export async function createNewViteProject(projectName: string) {
@@ -57,12 +56,10 @@ export async function createNewViteProject(projectName: string) {
   // Copy templates/vite/App.txt to the project directory
   const app = file(`templates/vite/App.txt`);
   write(`../${projectName}/${projectName}.Client/src/App.tsx`, app);
-  // await $`cp templates/vite/App.txt ../${projectName}/${projectName}.Client/src/App.tsx`;
 
   // Copy templates/vite/vite.config.txt to the project directory
   const viteConfig = file(`templates/vite/vite.config.txt`);
   write(`../${projectName}/${projectName}.Client/vite.config.ts`, viteConfig);
-  // await $`cp templates/vite/vite.config.txt ../${projectName}/${projectName}.Client/vite.config.ts`;
 
   // Read the launchSettings.json file to get the dotnet api url
   const launchSettings = await file(
@@ -101,8 +98,6 @@ export async function setupTailwind(projectName: string) {
   // Copy templates/index.css to the project directory
   const indexCss = file(`templates/tailwind/index.css`);
   write(`../${projectName}/${projectName}.Client/src/index.css`, indexCss);
-  // await $`cp templates/tailwind/tailwind.config.js ../${projectName}/${projectName}.Client/tailwind.config.js`;
-  // await $`cp templates/tailwind/index.css ../${projectName}/${projectName}.Client/src/index.css`;
 
   // Copy templates/tailwind/prettier.config.js to the project directory
   const prettierConfig = file(`templates/tailwind/prettier.config.js`);
@@ -110,5 +105,4 @@ export async function setupTailwind(projectName: string) {
     `../${projectName}/${projectName}.Client/prettier.config.js`,
     prettierConfig
   );
-  // await $`cp templates/tailwind/prettier.config.js ../${projectName}/${projectName}.Client/prettier.config.js`;
 }
