@@ -2,6 +2,9 @@
   "name": "create-dotnet-vite",
   "version": "0.0.01",
   "module": "index.ts",
+  "scripts": {
+    "create-dv": "bun index.ts"
+  },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "picocolors": "^1.0.0"

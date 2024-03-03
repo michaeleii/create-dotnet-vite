@@ -29,11 +29,6 @@ if (dirExists) {
   process.exit(1);
 }
 
-await $`mkdir ../${projectName}`;
-await createNewDotnetWebProject(projectName);
-
-await $`cd ../${projectName} && bun create vite ./${projectName}.Client --template react-ts`;
-
 const useTailwind = await p.text({
   message: `Do you want to use TailwindCSS? (y/n)`,
   validate(value) {
@@ -47,6 +42,11 @@ if (p.isCancel(useTailwind)) {
   p.cancel("Operation cancelled.");
   process.exit(0);
 }
+
+await $`mkdir ../${projectName}`;
+await createNewDotnetWebProject(projectName);
+
+await $`cd ../${projectName} && bun create vite ./${projectName}.Client --template react-ts`;
 
 p.note(`
 ${projectName}.Server is the backend aspnet core project
