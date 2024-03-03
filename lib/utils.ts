@@ -1,17 +1,4 @@
-import * as fs from "node:fs/promises";
 import { $, file, write } from "bun";
-
-export async function existsDirectory(path: string): Promise<boolean> {
-  try {
-    await fs.access(path);
-
-    const stats = await fs.lstat(path);
-
-    return stats.isDirectory();
-  } catch {
-    return false;
-  }
-}
 
 export async function createNewDotnetWebProject(projectName: string) {
   await $`cd ../${projectName} && dotnet new sln -n ${projectName}`;

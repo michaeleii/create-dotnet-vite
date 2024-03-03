@@ -1,8 +1,8 @@
 import * as p from "@clack/prompts";
 import color from "picocolors";
 import { $ } from "bun";
+import fs from "node:fs/promises";
 import {
-  existsDirectory,
   createNewDotnetWebProject,
   createNewViteProject,
   setupTailwind,
@@ -27,11 +27,26 @@ if (p.isCancel(projectName)) {
   process.exit(0);
 }
 
-const dirExists = await existsDirectory(`../${projectName}`);
+const directoryAlreadyExists = await fs.exists(`../${projectName}`);
 
-if (dirExists) {
-  p.outro(`You must delete ${projectName} before continuing.`);
-  process.exit(0);
+if (directoryAlreadyExists) {
+  const confirmDeleteProject = await p.confirm({
+    message: color.red(
+      `${projectName} already exists. Do you want to delete it?`
+    ),
+  });
+
+  if (!confirmDeleteProject) {
+    p.outro(`You must delete ${projectName} before continuing.`);
+    process.exit(0);
+  }
+
+  if (p.isCancel(confirmDeleteProject)) {
+    p.cancel("Operation cancelled.");
+    process.exit(0);
+  }
+
+  await fs.rm(`../${projectName}`, { recursive: true, force: true });
 }
 
 const useTailwind = await p.confirm({
