@@ -30,11 +30,23 @@ if (dirExists) {
 }
 
 await $`mkdir ../${projectName}`;
-await $`cd ../${projectName} && dotnet new sln -n ${projectName}`;
-await $`cd ../${projectName} && dotnet new web -o ${projectName}.Server`;
-await $`cd ../${projectName} && dotnet sln add ./${projectName}.Server/${projectName}.Server.csproj`;
+await createNewDotnetWebProject(projectName);
 
 await $`cd ../${projectName} && bun create vite ./${projectName}.Client --template react-ts`;
+
+const useTailwind = await p.text({
+  message: `Do you want to use TailwindCSS? (y/n)`,
+  validate(value) {
+    if (value !== "y" && value !== "n") {
+      return "Please enter y or n";
+    }
+  },
+});
+
+if (p.isCancel(useTailwind)) {
+  p.cancel("Operation cancelled.");
+  process.exit(0);
+}
 
 p.note(`
 ${projectName}.Server is the backend aspnet core project
@@ -61,4 +73,10 @@ async function existsDirectory(path: string): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+async function createNewDotnetWebProject(projectName: string) {
+  await $`cd ../${projectName} && dotnet new sln -n ${projectName}`;
+  await $`cd ../${projectName} && dotnet new web -o ${projectName}.Server`;
+  await $`cd ../${projectName} && dotnet sln add ./${projectName}.Server/${projectName}.Server.csproj`;
 }
