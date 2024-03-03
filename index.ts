@@ -22,29 +22,25 @@ if (p.isCancel(projectName)) {
   process.exit(0);
 }
 
-const dirExists = await existsDirectory(projectName);
+const dirExists = await existsDirectory(`../${projectName}`);
 
 if (dirExists) {
-  const overwrite = await p.confirm({
-    message: color.red(
-      `Directory ${projectName} already exists. Do you want to continue?`
-    ),
-  });
-  if (overwrite) {
-    await $`rm -rf ../${projectName}`;
-  } else {
-    p.outro(`Directory ${projectName} already exists 😬`);
-    process.exit(1);
-  }
+  // const overwrite = await p.confirm({
+  //   message: color.red(
+  //     `Directory ${projectName} already exists. Do you want to continue?`
+  //   ),
+  // });
+  // if (!overwrite) {
+  //   p.outro(`Directory ${projectName} already exists 😬`);
+  //   process.exit(1);
+  // }
+  // await $`rm -rf ../${projectName}`;
+  p.outro(`Directory ${projectName} already exists 😬`);
+  process.exit(1);
 }
 
-const useTailwind = await p.text({
-  message: `Do you want to use TailwindCSS? (y/n)`,
-  validate(value) {
-    if (value !== "y" && value !== "n") {
-      return "Please enter y or n";
-    }
-  },
+const useTailwind = await p.confirm({
+  message: `Do you want to use TailwindCSS?`,
 });
 
 if (p.isCancel(useTailwind)) {
@@ -57,7 +53,7 @@ await createNewDotnetWebProject(projectName);
 
 await $`cd ../${projectName} && bun create vite ./${projectName}.Client --template react-ts`;
 
-if (useTailwind === "y") {
+if (useTailwind) {
   await setupTailwind(projectName);
 }
 
