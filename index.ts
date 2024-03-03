@@ -1,6 +1,6 @@
 import * as p from "@clack/prompts";
 import color from "picocolors";
-import { $, ShellPromise, sleep } from "bun";
+import { $ } from "bun";
 import {
   existsDirectory,
   createNewDotnetWebProject,
