@@ -25,6 +25,15 @@ if (p.isCancel(projectName)) {
 const dirExists = await existsDirectory(projectName);
 
 if (dirExists) {
+  if (
+    await p.confirm({
+      message: color.red(
+        `Directory ${projectName} already exists. Do you want to continue?`
+      ),
+    })
+  ) {
+    await $`rm -rf ../${projectName}`;
+  }
   p.outro(`Directory ${projectName} already exists 😬`);
   process.exit(1);
 }
