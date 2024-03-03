@@ -48,6 +48,10 @@ await createNewDotnetWebProject(projectName);
 
 await $`cd ../${projectName} && bun create vite ./${projectName}.Client --template react-ts`;
 
+if (useTailwind === "y") {
+  await setupTailwind(projectName);
+}
+
 p.note(`
 ${projectName}.Server is the backend aspnet core project
 ${color.green("dotnet run")} to start the backend
@@ -79,4 +83,9 @@ async function createNewDotnetWebProject(projectName: string) {
   await $`cd ../${projectName} && dotnet new sln -n ${projectName}`;
   await $`cd ../${projectName} && dotnet new web -o ${projectName}.Server`;
   await $`cd ../${projectName} && dotnet sln add ./${projectName}.Server/${projectName}.Server.csproj`;
+}
+
+async function setupTailwind(projectName: string) {
+  await $`cd ../${projectName}/${projectName}.Client && bun install -D tailwindcss postcss autoprefixer`;
+  await $`cd ../${projectName}/${projectName}.Client && bun tailwindcss init -p`;
 }
