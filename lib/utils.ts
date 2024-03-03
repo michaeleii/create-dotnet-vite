@@ -37,9 +37,14 @@ export async function createNewDotnetWebProject(projectName: string) {
 }
 
 export async function createNewViteProject(projectName: string) {
+  // Create the vite project
   await $`cd ../${projectName} && bun create vite ${projectName.toLowerCase()}-client --template react-ts`;
+
   // Rename the project directory
   await $`mv ../${projectName}/${projectName.toLowerCase()}-client ../${projectName}/${projectName}.Client`;
+
+  // Install the dependencies
+  await $`cd ../${projectName}/${projectName}.Client && bun install`;
 
   // Remove the default App.css
   await $`rm -f ../${projectName}/${projectName}.Client/src/App.css`;
