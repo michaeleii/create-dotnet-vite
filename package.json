@@ -1,6 +1,6 @@
 {
   "name": "dotnet-vite",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "module": "index.ts",
   "scripts": {
     "start": "bun index.ts"
