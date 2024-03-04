@@ -60,7 +60,7 @@ export async function createNewViteProject(projectName: string) {
 
   // Modify vite.config in the client directory to replace the dotnet api url
   // Replace DOTNET_API_URL with the dotnetApiUrl in the vite.config.ts
-  await $`sed -i 's/"DOTNET_API_URL"/"http:\/\/${dotnetApiUrl}"/g' ../${projectName}/${projectName}.Client/vite.config.ts`;
+  await $`sed -i '' 's/DOTNET_API_URL/http:\/\/${dotnetApiUrl}/g' ../${projectName}/${projectName}.Client/vite.config.ts`;
 
   // Modify vite.config in the client directory to replace the project name
   await $`sed -i '' 's/PROJECT_NAME/${projectName}/g' ../${projectName}/${projectName}.Client/vite.config.ts`;
