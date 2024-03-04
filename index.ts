@@ -68,7 +68,7 @@ if (useTailwind) {
 
 p.note(`
 ${projectName}.Server is the backend aspnet core project
-${color.green("dotnet run")} to start the backend
+${color.green("dotnet watch")} to start the backend
 
 ${projectName}.Client is the frontend vite project
 ${color.green("bun dev")} to start the frontend`);
