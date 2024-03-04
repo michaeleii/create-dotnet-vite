@@ -1,6 +1,5 @@
 import * as p from "@clack/prompts";
 import color from "picocolors";
-import { $ } from "bun";
 import fs from "node:fs/promises";
 import {
   createNewDotnetWebProject,
@@ -58,7 +57,7 @@ if (p.isCancel(useTailwind)) {
   process.exit(0);
 }
 
-await $`mkdir ../${projectName}`;
+await fs.mkdir(`../${projectName}`);
 await createNewDotnetWebProject(projectName);
 await createNewViteProject(projectName);
 

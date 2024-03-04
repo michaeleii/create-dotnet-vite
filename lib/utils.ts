@@ -22,7 +22,7 @@ export async function createNewDotnetWebProject(projectName: string) {
 
   // Copy templates/dotnet/Program.txt to the project directory
   const program = file(`templates/dotnet/Program.txt`);
-  write(`../${projectName}/${projectName}.Server/Program.cs`, program);
+  await write(`../${projectName}/${projectName}.Server/Program.cs`, program);
 }
 
 export async function createNewViteProject(projectName: string) {
@@ -42,28 +42,28 @@ export async function createNewViteProject(projectName: string) {
 
   // Copy templates/vite/App.txt to the project directory
   const app = file(`templates/vite/App.txt`);
-  write(`../${projectName}/${projectName}.Client/src/App.tsx`, app);
+  await write(`../${projectName}/${projectName}.Client/src/App.tsx`, app);
 
   // Copy templates/vite/vite.config.txt to the project directory
-  const viteConfig = file(`templates/vite/vite.config.txt`);
-  write(`../${projectName}/${projectName}.Client/vite.config.ts`, viteConfig);
+  const viteConfig = await file(`templates/vite/vite.config.txt`).text();
 
   // Read the launchSettings.json file to get the dotnet api url
   const launchSettings = await file(
     `../${projectName}/${projectName}.Server/Properties/launchSettings.json`
   ).json();
 
-  const dotnetApiUrl = launchSettings.profiles.http.applicationUrl.replace(
-    "http://",
-    ""
+  const dotnetApiUrl = launchSettings.profiles.http.applicationUrl;
+
+  // Replace the dotnetApiUrl in the vite.config.ts file
+  viteConfig.replace("DOTNET_API_URL", dotnetApiUrl);
+
+  // Replace the projectName in the vite.config.ts file
+  viteConfig.replace("PROJECT_NAME", projectName);
+
+  await write(
+    `../${projectName}/${projectName}.Client/vite.config.ts`,
+    viteConfig
   );
-
-  // Modify vite.config in the client directory to replace the dotnet api url
-  // Replace DOTNET_API_URL with the dotnetApiUrl in the vite.config.ts
-  await $`sed -i '' 's/DOTNET_API_URL/http:\/\/${dotnetApiUrl}/g' ../${projectName}/${projectName}.Client/vite.config.ts`;
-
-  // Modify vite.config in the client directory to replace the project name
-  await $`sed -i '' 's/PROJECT_NAME/${projectName}/g' ../${projectName}/${projectName}.Client/vite.config.ts`;
 }
 
 export async function setupTailwind(projectName: string) {
@@ -78,17 +78,20 @@ export async function setupTailwind(projectName: string) {
 
   // Copy templates/tailwind.config.js to the project directory
   const tailwindConfig = file(`templates/tailwind/tailwind.config.js`);
-  write(
+  await write(
     `../${projectName}/${projectName}.Client/tailwind.config.js`,
     tailwindConfig
   );
   // Copy templates/index.css to the project directory
   const indexCss = file(`templates/tailwind/index.css`);
-  write(`../${projectName}/${projectName}.Client/src/index.css`, indexCss);
+  await write(
+    `../${projectName}/${projectName}.Client/src/index.css`,
+    indexCss
+  );
 
   // Copy templates/tailwind/prettier.config.js to the project directory
   const prettierConfig = file(`templates/tailwind/prettier.config.js`);
-  write(
+  await write(
     `../${projectName}/${projectName}.Client/prettier.config.js`,
     prettierConfig
   );
