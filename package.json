@@ -3,7 +3,7 @@
   "version": "0.0.01",
   "module": "index.ts",
   "scripts": {
-    "create-dv": "bun index.ts",
+    "start": "bun index.ts",
     "build": "bun build index.ts --compile --minify --sourcemap --outfile build/create-dotnet-vite"
   },
   "dependencies": {
