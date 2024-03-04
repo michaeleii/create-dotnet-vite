@@ -13,7 +13,7 @@
     "@types/bun": "latest"
   },
   "bin": {
-    "create-dotnet-vite": "index.ts"
+    "dotnet-vite": "index.ts"
   },
   "type": "module"
 }
