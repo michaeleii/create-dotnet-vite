@@ -2,7 +2,15 @@
 
 A CLI tool for quickly scaffolding a new .NET 8 web application with Vite as the front-end build tool.
 
-## Installation
+## Usage
+
+1. Run it with `bunx`.
+
+```bash
+bunx dotnet-vite
+```
+
+## Run it locally
 
 1. Install the dependencies.
 
@@ -13,5 +21,5 @@ bun i
 2. Run the following command to run the CLI tool.
 
 ```bash
-bun create-dv
+bun start
 ```
