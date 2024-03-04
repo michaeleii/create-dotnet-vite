@@ -7,7 +7,7 @@ A CLI tool for quickly scaffolding a new .NET 8 web application with Vite as the
 1. Run it with `bunx`.
 
 ```bash
-bunx dotnet-vite
+bunx create-dotnet-vite
 ```
 
 ## Run it locally
