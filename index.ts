@@ -46,7 +46,7 @@ if (directoryAlreadyExists) {
     process.exit(0);
   }
 
-  await rm(`/${projectName}`, { recursive: true, force: true });
+  await rm(`./${projectName}`, { recursive: true, force: true });
 }
 
 const useTailwind = await p.confirm({
@@ -58,7 +58,7 @@ if (p.isCancel(useTailwind)) {
   process.exit(0);
 }
 
-await mkdir(`/${projectName}`);
+await mkdir(`./${projectName}`);
 await createNewDotnetWebProject(projectName);
 await createNewViteProject(projectName);
 
@@ -74,6 +74,6 @@ ${projectName}.Client is the frontend vite project
 ${color.green("bun dev")} to start the frontend`);
 
 p.outro(`
-cd ${projectName} to start coding
+cd ../${projectName} to start coding
 Let's start coding! 🚀
 `);
