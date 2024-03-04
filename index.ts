@@ -27,7 +27,7 @@ if (p.isCancel(projectName)) {
   process.exit(0);
 }
 
-const directoryAlreadyExists = await exists(`../${projectName}`);
+const directoryAlreadyExists = await exists(`./${projectName}`);
 
 if (directoryAlreadyExists) {
   const confirmDeleteProject = await p.confirm({
