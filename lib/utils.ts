@@ -44,21 +44,22 @@ export async function createNewViteProject(projectName: string) {
   const app = file(`templates/vite/App.txt`);
   await write(`../${projectName}/${projectName}.Client/src/App.tsx`, app);
 
-  // Copy templates/vite/vite.config.txt to the project directory
-  const viteConfig = await file(`templates/vite/vite.config.txt`).text();
-
   // Read the launchSettings.json file to get the dotnet api url
   const launchSettings = await file(
     `../${projectName}/${projectName}.Server/Properties/launchSettings.json`
   ).json();
 
+  // Copy templates/vite/vite.config.txt to the project directory
+  let viteConfig = await file(`templates/vite/vite.config.txt`).text();
+
   const dotnetApiUrl = launchSettings.profiles.http.applicationUrl;
 
   // Replace the dotnetApiUrl in the vite.config.ts file
-  viteConfig.replace("DOTNET_API_URL", dotnetApiUrl);
+  viteConfig = viteConfig
+    .replace(/{DOTNET_API_URL}/g, dotnetApiUrl)
+    .replace(/{PROJECT_NAME}/g, projectName);
 
   // Replace the projectName in the vite.config.ts file
-  viteConfig.replace("PROJECT_NAME", projectName);
 
   await write(
     `../${projectName}/${projectName}.Client/vite.config.ts`,

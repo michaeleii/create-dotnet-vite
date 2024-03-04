@@ -6,11 +6,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "DOTNET_API_URL",
+      "/api": "{DOTNET_API_URL}",
     },
   },
   build: {
-    outDir: "../PROJECT_NAME.Server/wwwroot",
+    outDir: "../{PROJECT_NAME}.Server/wwwroot",
     emptyOutDir: true,
   },
 });
