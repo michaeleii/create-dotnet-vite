@@ -1,4 +1,5 @@
 import { $, file, write } from "bun";
+import { rm } from "fs/promises";
 
 export async function createNewDotnetWebProject(projectName: string) {
   await $`cd ../${projectName} && dotnet new sln -n ${projectName}`;
@@ -36,9 +37,13 @@ export async function createNewViteProject(projectName: string) {
   await $`cd ../${projectName}/${projectName}.Client && bun install`;
 
   // Remove the default App.css
-  await $`rm -f ../${projectName}/${projectName}.Client/src/App.css`;
+  await rm(`../${projectName}/${projectName}.Client/src/App.css`, {
+    force: true,
+  });
   // Remove the default App.tsx
-  await $`rm -f ../${projectName}/${projectName}.Client/src/App.tsx`;
+  await rm(`../${projectName}/${projectName}.Client/src/App.tsx`, {
+    force: true,
+  });
 
   // Copy templates/vite/App.txt to the project directory
   const app = file(`templates/vite/App.txt`);

@@ -1,6 +1,7 @@
+#!/usr/bin/env bun
 import * as p from "@clack/prompts";
 import color from "picocolors";
-import fs from "node:fs/promises";
+import { mkdir, rm, exists } from "node:fs/promises";
 import {
   createNewDotnetWebProject,
   createNewViteProject,
@@ -26,7 +27,7 @@ if (p.isCancel(projectName)) {
   process.exit(0);
 }
 
-const directoryAlreadyExists = await fs.exists(`../${projectName}`);
+const directoryAlreadyExists = await exists(`../${projectName}`);
 
 if (directoryAlreadyExists) {
   const confirmDeleteProject = await p.confirm({
@@ -45,7 +46,7 @@ if (directoryAlreadyExists) {
     process.exit(0);
   }
 
-  await fs.rm(`../${projectName}`, { recursive: true, force: true });
+  await rm(`../${projectName}`, { recursive: true, force: true });
 }
 
 const useTailwind = await p.confirm({
@@ -57,7 +58,7 @@ if (p.isCancel(useTailwind)) {
   process.exit(0);
 }
 
-await fs.mkdir(`../${projectName}`);
+await mkdir(`../${projectName}`);
 await createNewDotnetWebProject(projectName);
 await createNewViteProject(projectName);
 
