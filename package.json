@@ -1,6 +1,6 @@
 {
-  "name": "dotnet-vite",
-  "version": "0.0.1",
+  "name": "create-dotnet-vite",
+  "version": "0.0.0",
   "module": "index.ts",
   "scripts": {
     "start": "bun index.ts"
@@ -13,7 +13,7 @@
     "@types/bun": "latest"
   },
   "bin": {
-    "dotnet-vite": "index.ts"
+    "create-dotnet-vite": "index.ts"
   },
   "type": "module"
 }
