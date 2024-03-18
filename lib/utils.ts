@@ -5,27 +5,27 @@ const envExample = `DATABASE_CONNECTION_STRING="your database connection string"
 
 const program = `DotNetEnv.Env.Load();
 
-  var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
 
-  var builder = WebApplication.CreateBuilder(args);
-  builder.Services.AddEndpointsApiExplorer();
-  builder.Services.AddSwaggerGen();
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-  var app = builder.Build();
+var app = builder.Build();
 
-  if (app.Environment.IsDevelopment())
-  {
-      app.UseSwagger();
-      app.UseSwaggerUI();
-  }
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-  app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Hello World!");
 
-  app.UseDefaultFiles();
-  app.UseStaticFiles();
-  app.MapFallbackToFile("index.html");
+app.UseDefaultFiles();
+app.UseStaticFiles();
+app.MapFallbackToFile("index.html");
 
-  app.Run();
+app.Run();
 `;
 
 const app = `export default function App() {
@@ -138,7 +138,7 @@ export default {
   },
   plugins: [],
 };
-  `;
+`;
   await write(
     `./${projectName}/${projectName}.Client/tailwind.config.js`,
     tailwindConfig
@@ -147,8 +147,7 @@ export default {
   const indexCss = `@tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-  `;
+`;
   await write(`./${projectName}/${projectName}.Client/src/index.css`, indexCss);
 
   // Copy templates/tailwind/prettier.config.js to the project directory
@@ -156,7 +155,7 @@ export default {
 export default {
   plugins: ["prettier-plugin-tailwindcss"],
 };
-  `;
+`;
   await write(
     `./${projectName}/${projectName}.Client/prettier.config.js`,
     prettierConfig
