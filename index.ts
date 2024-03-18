@@ -74,6 +74,6 @@ ${projectName}.Client is the frontend vite project
 ${color.green("bun dev")} to start the frontend`);
 
 p.outro(`
-cd ../${projectName} to start coding
+cd ${projectName} to start coding
 Let's start coding! 🚀
 `);
